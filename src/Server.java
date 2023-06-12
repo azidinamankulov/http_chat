@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Server {
+
     private final Map<Socket, String> user = new HashMap<>();
 
     public void handle(Socket socket) throws IOException {
@@ -23,16 +24,16 @@ public class Server {
                     }
                 }
                 if (isEmptyMsg(message) || isQuitMsg(message)){
-                    sendResponse("YOU CAN'T WRITE EMPTY MESSAGE", getWriter(socket));
+                    sendResponse("you can't write the empty message!!!", getWriter(socket));
                 }
             }
         } catch (NoSuchElementException e) {
             for (Socket s : user.keySet()) {
                 if (s != socket) {
-                    sendResponse("THE " + user.get(socket) + " HAS LEFT FROM CHAT.", getWriter(s));
+                    sendResponse("the user  " + user.get(socket) + "  left to bye a some milk", getWriter(s));
                 }
             }
-            System.out.printf("The user %s",user.get(socket) + " left");
+            System.out.printf("the user %s",user.get(socket) + " left");
             user.remove(socket);
         } catch (IOException ioException) {
             throw new RuntimeException();
