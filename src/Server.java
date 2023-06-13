@@ -9,18 +9,16 @@ public class Server {
 
     public void handle(Socket socket) throws IOException {
         String userName = generateRandomUser();
-
-
         System.out.printf("Connected new user: %s%n", userName);
         try (socket;
              var reader = getReader(socket);
              PrintWriter writer = getWriter(socket)) {
-            user.put(socket, userName);
-            sendResponse("Hi it's your nickname: " + userName, writer);
+             user.put(socket, userName);
+             sendResponse("Hi it's your nickname: " + userName, writer);
             while (true) {
-               String  message = reader.nextLine().strip();
-                for (Socket s :user.keySet()){
-                    if (s != socket){
+                String  message = reader.nextLine().strip();
+                for (Socket s : user.keySet()){
+                    if (s != socket && !isEmptyMsg(message)){
                         sendResponse(user.get(socket) + ": " + message, getWriter(s));
                     }
                 } if (isEmptyMsg(message)){
@@ -87,5 +85,4 @@ public class Server {
             throw new RuntimeException();
         }
     }
-
 }

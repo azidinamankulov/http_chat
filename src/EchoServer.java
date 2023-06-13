@@ -6,7 +6,6 @@ import java.util.concurrent.Executors;
 
 public class EchoServer {
 
-
     private final int port;
 
     private final ExecutorService pool = Executors.newCachedThreadPool();
@@ -40,4 +39,3 @@ public class EchoServer {
     }
 
 }
-
